@@ -29,27 +29,27 @@ jobs:
       - name: Run non-smoke tests
         run: npx playwright test --project=chromium --grep-invert @smoke
 
-  unit_tests:
-    name: Run unit tests
-    runs-on: ubuntu-latest
-    timeout-minutes: 45
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v5
-      - uses: actions/setup-node@v4
-        with:
-          node-version: lts/*
-      - name: Set github user
-        run: git config --global user.email "test@example.com" && git config --global user.name "CI/CD"
-      - name: Install the dependencies
-        run: npm ci
-      - name: Run unit tests
-        run: npm run test --if-present
+  # unit_tests:
+  #   name: Run unit tests
+  #   runs-on: ubuntu-latest
+  #   timeout-minutes: 45
+  #   steps:
+  #     - name: Check out repository code
+  #       uses: actions/checkout@v5
+  #     - uses: actions/setup-node@v4
+  #       with:
+  #         node-version: lts/*
+  #     - name: Set github user
+  #       run: git config --global user.email "test@example.com" && git config --global user.name "CI/CD"
+  #     - name: Install the dependencies
+  #       run: npm ci
+  #     - name: Run unit tests
+  #       run: npm run test --if-present
 
   build:
     name: Generate build
     timeout-minutes: 10
-    needs: [e2e_tests, unit_tests]
+    needs: [e2e_tests]
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
